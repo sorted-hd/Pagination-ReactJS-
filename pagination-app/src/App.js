@@ -33,13 +33,15 @@ function App() {
   return (
     <div className="App">
       <h1>{error}</h1>
-      <Pagination
-        data={posts}
-        RenderComponent={Post}
-        dataLimit={10}
-        pageLimit={5}
-        title="Posts"
-      />
+      {posts.length !== 0 && (
+        <Pagination
+          data={posts}
+          RenderComponent={Post}
+          dataLimit={10}
+          pageLimit={5}
+          title="Posts"
+        />
+      )}
     </div>
   );
 }

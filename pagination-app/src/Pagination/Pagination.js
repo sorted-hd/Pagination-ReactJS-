@@ -1,10 +1,14 @@
 import "./Pagination.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Pagination = ({ data, RenderComponent, dataLimit, pageLimit, title }) => {
   const [pages] = useState(Math.round(data.length / dataLimit));
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    window.scrollTo({ behavior: "smooth", top: "0px" });
+  }, [currentPage]);
 
   const goToNextPage = () => {
     setCurrentPage((page) => page + 1);
@@ -15,15 +19,15 @@ const Pagination = ({ data, RenderComponent, dataLimit, pageLimit, title }) => {
   };
 
   const changePage = (event) => {
+    event.preventDefault();
     const pageNumber = Number(event.target.textContent);
     setCurrentPage(pageNumber);
   };
 
   const getPaginatedData = () => {
     const nData = [...data];
-    const startIndex = currentPage * dataLimit - dataLimit;
-    const endIndex = startIndex + dataLimit;
-    return nData.splice(startIndex, endIndex);
+    let startIndex = currentPage * dataLimit - dataLimit;
+    return nData.splice(startIndex, dataLimit);
   };
 
   const getPaginationGroup = () => {
